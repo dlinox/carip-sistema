@@ -1,0 +1,569 @@
+.esconder {
+	display: none;
+}
+
+.mone {
+	text-align: right
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+	height: inherit !important;
+}
+
+/*.user-image{width: 160px !important; height: 160px !important;}*/
+.content-header>.add-buttons {
+	float: right;
+	background: transparent;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 12px;
+	padding: 7px 5px;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	border-radius: 2px;
+}
+
+.add-buttons {
+	padding: 8px 15px;
+	margin-bottom: 20px;
+	list-style: none;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+
+.add-buttons>li {
+	display: inline-block;
+}
+
+.totales {
+	background: transparent !important;
+	border: none;
+}
+
+.totales:focus {
+	outline: none;
+}
+
+.totales:hover {
+	cursor: default;
+}
+
+.form-check label {
+	position: relative;
+	cursor: pointer;
+	font-size: 12px;
+}
+
+/*.form-check input[type="checkbox"], input[type="radio"]{
+	position: absolute;
+	right: 9000px;
+}*/
+
+/*Check box*/
+.form-check input[type="checkbox"]+.label-text:before {
+	content: "\f096";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.form-check input[type="checkbox"]:checked+.label-text:before {
+	content: "\f14a";
+	color: #2980b9;
+	animation: effect 250ms ease-in;
+}
+
+.form-check input[type="checkbox"]:disabled+.label-text {
+	color: #aaa;
+}
+
+.form-check input[type="checkbox"]:disabled+.label-text:before {
+	content: "\f0c8";
+	color: #ccc;
+}
+
+.status {
+	padding: 3px 5px;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.status-warning {
+	background: #f39c12;
+	border-color: #e08e0b;
+}
+
+.status-success {
+	background: #00a65a;
+	border-color: #008d4c;
+}
+
+#mitabla thead tr th:first-child {
+	min-width: 50px;
+}
+
+#mitabla img {
+	max-width: 100px;
+	height: auto;
+}
+
+.listado.fa-book {
+	font-size: 50px;
+}
+
+.sec_busqueda {
+	margin-left: 0px;
+}
+
+.book-details img {
+	width: 100%;
+	height: auto;
+}
+
+/*table thead tr{background: #00a65a; color: #fefefe;}*/
+
+/*
+label{
+	position: relative;
+	cursor: pointer;
+	color: #666;
+	font-size: 30px;
+}
+*/
+
+/*.form-check input[type="checkbox"], input[type="radio"]{
+	position: absolute;
+	right: 9000px;
+}*/
+
+/*Check box*/
+.form-check input[type="checkbox"]+.label-text:before {
+	content: "\f096";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.form-check input[type="checkbox"]:checked+.label-text:before {
+	content: "\f14a";
+	color: #2980b9;
+	animation: effect 250ms ease-in;
+}
+
+.form-check input[type="checkbox"]:disabled+.label-text {
+	color: #aaa;
+}
+
+.form-check input[type="checkbox"]:disabled+.label-text:before {
+	content: "\f0c8";
+	color: #ccc;
+}
+
+/*Radio box*/
+
+.form-check input[type="radio"]+.label-text:before {
+	content: "\f10c";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.form-check input[type="radio"]:checked+.label-text:before {
+	content: "\f192";
+	color: #8e44ad;
+	animation: effect 250ms ease-in;
+}
+
+.form-check input[type="radio"]:disabled+.label-text {
+	color: #aaa;
+}
+
+.form-check input[type="radio"]:disabled+.label-text:before {
+	content: "\f111";
+	color: #ccc;
+}
+
+/*Radio Toggle*/
+
+.toggle input[type="radio"]+.label-text:before {
+	content: "\f204";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.toggle input[type="radio"]:checked+.label-text:before {
+	content: "\f205";
+	color: #16a085;
+	animation: effect 250ms ease-in;
+}
+
+.toggle input[type="radio"]:disabled+.label-text {
+	color: #aaa;
+}
+
+.toggle input[type="radio"]:disabled+.label-text:before {
+	content: "\f204";
+	color: #ccc;
+}
+
+.bg-celeste {
+	background-color: #00adb5;
+	color: white;
+}
+
+.bg-rosado {
+	background-color: #ff2e63;
+	color: white;
+}
+
+
+
+@keyframes effect {
+	0% {
+		transform: scale(0);
+	}
+
+	25% {
+		transform: scale(1.3);
+	}
+
+	75% {
+		transform: scale(1.4);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.pd-r-0 {
+	padding-right: 0px;
+}
+
+.table thead {
+	background-color: #dddddd;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+table.dataTable tbody>tr.selected,
+table.dataTable tbody>tr>.selected {
+	background-color: #08C;
+}
+
+table.dataTable tbody tr.selected,
+table.dataTable tbody th.selected,
+table.dataTable tbody td.selected,
+table.dataTable tbody tr.selected td span {
+	color: white !important;
+}
+
+/*
+table.dataTable tbody tr.selected td a {
+    color: yellow;
+}
+*/
+#tbl-pasajeros td {
+	padding: 0px !important;
+}
+
+.tbl-padding-2 td {
+	padding: 2px !important;
+}
+
+.btn-opc {
+	padding: 5px 8px;
+}
+
+.btn-opc:hover {
+	color: #333 !important;
+}
+
+.update_status:hover {
+	cursor: pointer;
+}
+
+.bg-sunat {
+	background-image: url('assets/../../img/sunat.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 20px;
+	width: 20px;
+	display: inline-block;
+	position: absolute;
+	margin-top: 5px;
+}
+
+table .opc {
+	white-space: nowrap;
+}
+
+.dropdown-menu {
+	border-color: #aaa;
+}
+
+.dropdown-menu>li>a {
+	color: #333;
+}
+
+.sflag {
+	font-size: 20px;
+	padding-top: 3px;
+	position: absolute;
+	margin-left: 5px;
+}
+
+.user-panel>.image>img {
+	max-width: 140px;
+}
+
+.user-panel {
+	text-align: center
+}
+
+.login-box,
+.register-box {
+	width: 460px;
+}
+
+.login-box-body img {
+	width: 100%;
+	height: auto;
+}
+
+#sumatotal {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.mb15 {
+	margin-bottom: 15px;
+}
+
+a.disabled {
+	/* Make the disabled links grayish*/
+	color: gray;
+	text-decoration: line-through;
+	/* And disable the pointer events */
+	pointer-events: none;
+}
+
+@media only screen and (max-width : 768px) {
+
+	.login-box,
+	.register-box {
+		width: 90%;
+		margin-top: 20px;
+	}
+}
+
+
+
+
+/* Print */
+@media print {
+
+	.col-sm-1,
+	.col-sm-2,
+	.col-sm-3,
+	.col-sm-4,
+	.col-sm-5,
+	.col-sm-6,
+	.col-sm-7,
+	.col-sm-8,
+	.col-sm-9,
+	.col-sm-10,
+	.col-sm-11,
+	.col-sm-12 {
+		float: left;
+	}
+
+	.col-sm-12 {
+		width: 100%;
+	}
+
+	.col-sm-11 {
+		width: 91.66666667%;
+	}
+
+	.col-sm-10 {
+		width: 83.33333333%;
+	}
+
+	.col-sm-9 {
+		width: 75%;
+	}
+
+	.col-sm-8 {
+		width: 66.66666667%;
+	}
+
+	.col-sm-7 {
+		width: 58.33333333%;
+	}
+
+	.col-sm-6 {
+		width: 50%;
+	}
+
+	.col-sm-5 {
+		width: 41.66666667%;
+	}
+
+	.col-sm-4 {
+		width: 33.33333333%;
+	}
+
+	.col-sm-3 {
+		width: 25%;
+	}
+
+	.col-sm-2 {
+		width: 16.66666667%;
+	}
+
+	.col-sm-1 {
+		width: 8.33333333%;
+	}
+}
+
+/* End Print */
+
+/* EMPRESA ESTYLOS*/
+#box-info-empresa input {
+	font-size: 16px;
+	transition: all .3s ease-in;
+}
+
+#box-info-empresa input:read-only {
+	background-color: #fefefe;
+	border: none;
+	color: #000;
+	font-size: 18px;
+}
+
+#btn-guardar-empresa, #btn-guardar-persona {
+	transition: visibility 0s, opacity .4s ease-in-out;
+}
+
+#box-info-empresa .edit {
+	opacity: 1;
+	visibility: visible;
+}
+
+#box-info-empresa .no-edit {
+	opacity: 0;
+	visibility: hidden;
+}
+
+#info-persona .no-edit{
+	display: none;
+	margin-top: 0px;
+}
+
+#info-persona .edit{
+	display: block;
+	margin-top: 10px;
+}
+
+
+
+
+.img-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+	align-items: flex-center;
+	padding: 20px 10px;
+	border: 1px solid #eee;
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.btn-editar-logo {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+/* EMPRESA ESTYLOS*/
+
+/* Style the active class (and buttons on mouse-over) */
+.active-btn,
+.btn-nivel:hover {
+	background-color: rgb(98, 243, 85) !important;
+	color: white !important;
+}
+
+#tab-final.active-btn , #tab-final.btn-nivel:hover{
+	background-color: rgb(238, 62, 9) !important;
+	color: white !important;
+}
+.selected{
+	background:rgba(0, 0, 255, 0.404) !important;
+}
+
+li.active{
+	background: rgba(0, 58, 133, 0.3) !important;
+}
+
+.breadcrumb li.active{
+	background: none !important;
+
+}
+
+.info-box.mb-0{
+	margin-bottom: 0px !important;
+	border-bottom: 1px solid #eee;
+}
+.alerta-pago{
+	background-color: rgba(238, 62, 9, .4);
+	padding: 10px 15px;
+	color: rgb(58, 52, 52);
+	border: 1px #F00 solid;
+}
+.alerta-pago i{
+	background: #000;
+	padding: 10px;
+	margin-right: 10px;
+	color: white;
+}
+
