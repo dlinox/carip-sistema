@@ -44,15 +44,13 @@ $(document).ready(function () {
 
         $("#selectCategoria").val("");
         $("#selectMencion").val("");
-        $("input[name='fecha_emision']").val(new Date());
+        $("input[name='fecha_emision']").val("");
 
         response.data.alumnos.forEach((element) => {
           if (element.codigo) {
             $("#selectCategoria").val(element.categoria);
             $("#selectMencion").val(element.mencion);
-            $("input[name='fecha_emision']").val(element.fecha.substr(0, 10));
-            // console.log(element.fecha.substr(0, 10));
-            // date('Y-m-d')
+            $("input[name='fecha_emision']").val(element.fecha);
           }
           alumnos_ids.push(element.alum_id);
         });

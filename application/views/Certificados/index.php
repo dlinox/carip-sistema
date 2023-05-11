@@ -55,19 +55,18 @@
 
             <div class="box-body">
                 <div class="row pb-3">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <label>Categoria:</label>
                         <?= form_dropdown('cate_id', $categorias, null, array('class' => 'form-control', 'id' => 'selectCategoria')) ?>
                     </div>
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <label>Mención</label>
                         <?= form_dropdown('menc_id', $menciones, null, array('class' => 'form-control', 'id' => 'selectMencion')) ?>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <label>Fecha de emicion</label>
-                        <input type="date" class="form-control  datetime" value="<?= date('Y-m-d')  ?>" name="fecha_emision">
-
+                    <div class="col-12 col-md-6">
+                        <label>Emicion</label>
+                        <?= form_input(array('name' => 'fecha_emision', 'placeholder' => 'Fecha', 'class' => 'form-control', 'placeholder' => 'Arequipa, Enero de 2023')) ?>
                     </div>
                 </div>
             </div>
@@ -80,12 +79,12 @@
                 <table id="tablacertificados" class="table responsive table-striped table-bordered display" style="width:100%">
                     <thead>
                         <tr>
-                            <th >N°</th>
-                            <th >APELLIDOS</th>
-                            <th >NOMBRES</th>
-                            <th >PREFIJO</th>
-                            <th >CODIGO</th>
-                            <th >CERTIFICADO</th>
+                            <th>N°</th>
+                            <th>APELLIDOS</th>
+                            <th>NOMBRES</th>
+                            <th>PREFIJO</th>
+                            <th>CODIGO</th>
+                            <th>CERTIFICADO</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
