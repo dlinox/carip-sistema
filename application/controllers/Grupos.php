@@ -766,4 +766,8 @@ class Grupos extends CI_Controller
             echo json_encode($responese);
         }
     }
+
+    public function getCertificados($grupo_id){
+        showData($this->model->getAlumnosInfoCertificado($grupo_id));
+    }
 }

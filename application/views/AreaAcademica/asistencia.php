@@ -28,7 +28,6 @@
 					</div>
 				</div>
 
-
 				<div class="col-sm-2">
 					<div class="form-group">
 						<select id="selectPeriodo" class="form-control">

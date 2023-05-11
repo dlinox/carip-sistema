@@ -1,102 +1,113 @@
 <script type="text/x-jQuery-template" id="s2persona">
-    <div class="form-group">
-        <input type="checkbox" name="agregar_${name}" style="display: none" /> 
-        <button type="button" class="btn btn-block btn-info s2p-btn-show-hide">Agregar nuevo</button>
-    </div>
-    <div class="row form-group s2p-box-nuevo">
-        <div class="col-sm-2">
-            <label for="serie">DNI <a  class="" onclick="getDatosSunat()">
-                 Reniec <i class="fas fa-search"></i>
-            </a> </label> 
-            <input id="input-dni" type="text" name="${prefix}dni" value="" class="form-control" maxlength="8">
-            
-        </div>
-        <div class="col-sm-4">
-            <label for="serie">Nombres</label>
-            <input id="input-nombre" type="text" name="${prefix}nombre" value="" class="form-control">
-        </div>
-        <div class="col-sm-4">
-            <label for="serie">Apellidos</label>
-            <input id="input-apellidos" type="text" name="${prefix}apellidos" value="" class="form-control">
-        </div>
-        <div class="col-sm-2">
-            <label for="serie">Celular</label>
-            <input type="text" name="${prefix}celular" value="" class="form-control">
-        </div>
-    </div>
-    <div class="form-group s2p-box-buscador">
-        <label for="${name}_id">Buscar</label>
-        <select name="${name}_id" class="form-control"></select>
-    </div>
+  <div class="form-group">
+      <input type="checkbox" name="agregar_${name}" style="display: none" />
+      <button type="button" class="btn btn-block btn-info s2p-btn-show-hide">Agregar nuevo</button>
+  </div>
+  <div class="row form-group s2p-box-nuevo">
+      <div class="col-sm-2">
+          <label for="serie">DNI <a  class="" onclick="getDatosSunat()">
+               Reniec <i class="fas fa-search"></i>
+          </a> </label>
+          <input id="input-dni" type="text" name="${prefix}dni" value="" class="form-control" maxlength="8">
+
+      </div>
+      <div class="col-sm-4">
+          <label for="serie">Nombres</label>
+          <input id="input-nombre" type="text" name="${prefix}nombre" value="" class="form-control">
+      </div>
+      <div class="col-sm-4">
+          <label for="serie">Apellidos</label>
+          <input id="input-apellidos" type="text" name="${prefix}apellidos" value="" class="form-control">
+      </div>
+      <div class="col-sm-2">
+          <label for="serie">Celular</label>
+          <input type="text" name="${prefix}celular" value="" class="form-control">
+      </div>
+  </div>
+  <div class="form-group s2p-box-buscador">
+      <label for="${name}_id">Buscar</label>
+      <select name="${name}_id" class="form-control"></select>
+  </div>
 </script>
 
 <script type="text/x-jQuery-template" id="cursoPeriodo">
-    <div class="col-sm-3">
-        <select class="form-control" name="curso_id"></select>
-    </div>
-    <div class="col-sm-3">
-        <select class="form-control" name="periodo_id" style="width: 100%">
-            <option value="">Seleccione el periodo</option>
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <select id="selectGrupo" class="form-control group_id" name="grupo_id" style="width: 100%"></select>
-    </div>
+  <div class="col-sm-3">
+      <select class="form-control" name="curso_id"></select>
+  </div>
+  <div class="col-sm-3">
+      <select class="form-control" name="periodo_id" style="width: 100%">
+          <option value="">Seleccione el periodo</option>
+      </select>
+  </div>
+  <div class="col-sm-3">
+      <select id="selectGrupo" class="form-control group_id" name="grupo_id" style="width: 100%"></select>
+  </div>
 </script>
 
 <script type="text/x-jQuery-template" id="asistencias">
-    <tr>
-        <td>${numero}</td>
-        <td>${apellidos}</td>
-        <td>${nombres}</td>
-        {{each asistencias}}
-            <td>
-                <span class="hidden">${asistencias[$index]}</span>
-                <input type="checkbox" name="asistencias[${alum_id}][${$index}]" {{if $value == 1}} checked {{/if}} />
-            </td>
-        {{/each}}
-    </tr>
+  <tr>
+      <td>${numero}</td>
+      <td>${apellidos}</td>
+      <td>${nombres}</td>
+      {{each asistencias}}
+          <td>
+              <span class="hidden">${asistencias[$index]}</span>
+              <input type="checkbox" name="asistencias[${alum_id}][${$index}]" {{if $value == 1}} checked {{/if}} />
+          </td>
+      {{/each}}
+  </tr>
+</script>
+
+<script type="text/x-jQuery-template" id="template_certificados">
+  <tr>
+      <td>${alum_id}</td>
+      <td>${apellidos}</td>
+      <td>${nombres}</td>
+      <td>${prefix}</td>
+      <td>${codigo}</td>
+      <td> <input type="checkbox" name="certificado[${alum_id}]" {{if codigo !=  null}} checked {{/if}} /> </td>
+  </tr>
 </script>
 
 <script type="text/x-jQuery-template" id="notas">
-    <tr>
-        <td>${numero}</td>
-        <td>${apellidos}</td>
-        <td>${nombres}</td>
-        {{each notas}}
-            <td>
-                <input type="number" {{if niveles}} disabled {{/if}} name="notas[${nota_id}][${$index}]" value="${$value}" style="width: 40px" min="0" />
-                <span class="hidden">${notas[$index]}</span>
-            </td>
-        {{/each}}
-        <td>
-            <input type="text" disabled value="0" style="width: 40px" />
-            <span class="hidden" id="promedio"></span>
-        </td>
-    </tr>
+  <tr>
+      <td>${numero}</td>
+      <td>${apellidos}</td>
+      <td>${nombres}</td>
+      {{each notas}}
+          <td>
+              <input type="number" {{if niveles}} disabled {{/if}} name="notas[${nota_id}][${$index}]" value="${$value}" style="width: 40px" min="0" />
+              <span class="hidden">${notas[$index]}</span>
+          </td>
+      {{/each}}
+      <td>
+          <input type="text" disabled value="0" style="width: 40px" />
+          <span class="hidden" id="promedio"></span>
+      </td>
+  </tr>
 </script>
 
 <script type="text/x-jQuery-template" id="tmpl-pagos">
-    <tr>
-        <td>${numero}</td>
-        <td>${apellidos}</td>
-        <td>${nombres}</td>
-        <td>
-            <input type="range" min="0" max="6" value="${cuotas}" class="range" />
-        </td>
-        <td>
-            <input type="number" value="${cuotas}" />
-        </td>
-        <td>
-            <button class="btn btn-default agregar-cuota" type="button">Agregar cuota</button>
-        </td>
-    </tr>
+  <tr>
+      <td>${numero}</td>
+      <td>${apellidos}</td>
+      <td>${nombres}</td>
+      <td>
+          <input type="range" min="0" max="6" value="${cuotas}" class="range" />
+      </td>
+      <td>
+          <input type="number" value="${cuotas}" />
+      </td>
+      <td>
+          <button class="btn btn-default agregar-cuota" type="button">Agregar cuota</button>
+      </td>
+  </tr>
 </script>
 
 <script type="text/x-jQuery-template" id="tmpl-barra-progreso">
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100" style="min-width: 0.5em; width: ${value}%;">
-        ${value} %
-        </div>
-    </div>
+  <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100" style="min-width: 0.5em; width: ${value}%;">
+      ${value} %
+      </div>
+  </div>
 </script>

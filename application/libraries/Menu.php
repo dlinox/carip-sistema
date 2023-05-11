@@ -255,7 +255,7 @@ class Menu
 						"url" => "Contabilidad/resumenGeneral",
 					)
 
-					
+
 				)
 			);
 		};
@@ -319,7 +319,7 @@ class Menu
 						"icon" => "dot-circle",
 						"url" => "configuracion/tipo_alumno",
 					),
-					
+
 
 
 					// array(
@@ -331,6 +331,35 @@ class Menu
 				)
 			);
 		}
+
+
+		if ($_SESSION['usua_tipo'] == 2 || $_SESSION['usua_tipo'] == 7) {
+			$this->menu[] = array(
+				"name" => "Certificados",
+				"icon" => "user",
+				"url" => "certificados",
+				"add" =>
+				[
+
+					[
+						"name" => "Generar",
+						"icon" => "dot-circle",
+						"url" => "certificados/",
+					],
+
+					[
+						"name" => "Categorias",
+						"icon" => "dot-circle",
+						"url" => "certificados/categorias",
+					],
+					[
+						"name" => "Menciones",
+						"icon" => "dot-circle",
+						"url" => "certificados/menciones",
+					]
+				]
+			);
+		};
 	}
 	public function getMenu()
 	{

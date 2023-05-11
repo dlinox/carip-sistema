@@ -180,4 +180,30 @@ class GrupoModel extends CI_Model
         $this->db->trans_complete();
         return true;
     }
+
+    public function getAlumnosInfoCertificado($grup_id)
+    {
+        $this->db->select(
+            'id_alumno AS alum_id, 
+            pers_nombres AS nombres, 
+            pers_apellidos AS apellidos,
+            cert_num as codigo,
+            cert_prefix as prefix,
+            cert_cate_id as categoria,
+            cert_menc_id as mencion,
+            cert_fecha as fecha'
+        );
+        $this->db->from('grupos_alumnos');
+        $this->db->join('alumnos', 'gral_id_alumno = id_alumno');
+        $this->db->join('personas', 'alum_pers_id = pers_id');
+        $this->db->join('certificados', 'gral_id_alumno = cert_alum_id', 'left');
+        //$this->db->where(['cert_grup_id' => $grup_id]);
+        $this->db->where(['gral_grup_id' => $grup_id]);
+
+        $this->db->order_by('pers_apellidos', 'ASC');
+        $this->db->order_by('pers_nombres', 'ASC');
+        $alumnos = $this->db->get()->result();
+        $producto = $this->productoModel->getByGrupo($grup_id);
+        return compact('alumnos', 'producto');
+    }
 }
