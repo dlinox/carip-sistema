@@ -77,6 +77,7 @@ class Certificados extends CI_Controller
         . str_pad($data['cert_cate_id'], 2, '0', STR_PAD_LEFT)
         . str_pad($data['cert_menc_id'], 2, '0', STR_PAD_LEFT)
         . str_pad($value, 4, '0', STR_PAD_LEFT);
+
       $data['cert_alum_id'] = $value;
       $data['cert_num'] = $numero;
 
@@ -428,7 +429,6 @@ class Certificados extends CI_Controller
     //$script['js'] = $this->cssjs->generate_js();
 
     $this->load->view($this->controller . "/form_personal", $data);
-    
   }
 
   public function certificado_guardar($id = null)

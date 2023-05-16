@@ -56,3 +56,6 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['api'] = 'api';
 $route['api/obtener-datos'] = 'api/obtener_datos';
+$route['api/validar-certificado'] = 'api/validar_certificado';
+
+
