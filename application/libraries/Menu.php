@@ -342,9 +342,14 @@ class Menu
 				[
 
 					[
-						"name" => "Generar",
+						"name" => "Grupo",
 						"icon" => "dot-circle",
 						"url" => "certificados/",
+					],
+					[
+						"name" => "Personal",
+						"icon" => "dot-circle",
+						"url" => "certificados/personal",
 					],
 
 					[

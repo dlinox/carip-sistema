@@ -45,9 +45,6 @@ class Certificados extends CI_Controller
 
   public function certificados_guardar()
   {
-
-
-
     $usuarios =  $this->input->post("certificado[]");
     //$alumnos_ids =  $this->input->post("alumnos_ids");
     $data['cert_cate_id'] = $this->input->post("cate_id");
@@ -168,7 +165,6 @@ class Certificados extends CI_Controller
     $data["categoria"] = $categoria;
     $this->load->view($this->controller . "/form_categoria", $data);
   }
-
 
   public function categoria_guardar($id = null)
   {
@@ -343,6 +339,126 @@ class Certificados extends CI_Controller
       } else {
         $resp["exito"] = true;
         $resp["mensaje"] = "Eliminado con exito";
+      }
+    }
+    echo json_encode($resp);
+  }
+
+  public function personal()
+  {
+    $datos = [];
+
+    $this->load->helper('Functions');
+    $this->load->library('Ssp');
+    $this->load->library('Cssjs');
+    $json = isset($_GET['json']) ? $_GET['json'] : false;
+
+
+    $columns = array(
+      array('db' => 'cert_id', 'dt' => 'DT_RowId'),
+      array('db' => 'cert_id', 'dt' => 'ID'),
+      array('db' => 'cert_alum_nombre', 'dt' => 'ALUMNO'),
+      array('db' => 'cert_prefix', 'dt' => 'PREFIJO'),
+      array('db' => 'cert_num', 'dt' => 'NÚMERO'),
+      array('db' => 'cert_fecha', 'dt' => 'FECHA'),
+
+    );
+
+    foreach ($columns as &$item) {
+      $item['field'] = $item['db'];
+    }
+
+    if ($json) {
+      $json = isset($_GET['json']) ? $_GET['json'] : false;
+
+      $table = 'certificados';
+      $primaryKey = 'cert_id';
+
+      $sql_details = array(
+        'user' => $this->db->username,
+        'pass' => $this->db->password,
+        'db' => $this->db->database,
+        'host' => $this->db->hostname
+      );
+
+      $condiciones = array('cert_grup_id IS NULL');
+      $joinQuery = '';
+
+      $where = "";
+
+      $where = count($condiciones) > 0 ? implode(' AND ', $condiciones) : "";
+
+      //var_dump($where);
+      echo json_encode(
+        $this->ssp->simple($_POST, $sql_details, $table, $primaryKey, $columns, $joinQuery, $where)
+      );
+      exit(0);
+    }
+
+    $datos['columns'] = $columns;
+    $datos['titulo'] = "Certificados Personales";
+    $this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
+    $this->load->view('header',);
+    $this->load->view($this->controller . "/personales", $datos);
+    $this->load->view('footer');
+  }
+
+  public function personal_crear($id = "")
+  {
+    if (empty($id)) {
+      $certificado = new stdClass();
+      $certificado->cert_id = "";
+      $certificado->cert_cate_id = "";
+      $certificado->cert_menc_id = "";
+      $certificado->cert_alum_id = "";
+      $certificado->cert_alum_nombre = "";
+      $certificado->cert_prefix = "";
+      $certificado->cert_num = "";
+      $certificado->cert_fecha = "";
+    } else {
+      $certificado = $this->db->where("cert_id", $id)->get("certificados")->row();
+    }
+    $data["certificado"] = $certificado;
+
+    $data["categorias"] = $this->general->getOptions('cert_categorias', array("cert_cate_id", "cert_cate_nombre"), '* Categoria');
+    $data["menciones"] = $this->general->getOptions('cert_menciones', array("cert_menc_id", "cert_menc_nombre"), '* Mención');
+
+    $this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
+    //$script['js'] = $this->cssjs->generate_js();
+
+    $this->load->view($this->controller . "/form_personal", $data);
+    
+  }
+
+  public function certificado_guardar($id = null)
+  {
+    $data = [
+      'cert_menc_id' => $this->input->post("cert_menc_id"),
+      'cert_cate_id' => $this->input->post("cert_cate_id"),
+      'cert_fecha' => $this->input->post("cert_fecha"),
+      'cert_alum_nombre' => $this->input->post("cert_alum_nombre"),
+      'cert_prefix' => $this->input->post("cert_prefix"),
+      'cert_num' => $this->input->post("cert_num"),
+    ];
+
+    if ($id != null) {
+      $condicion = array("cert_id" => $id);
+
+      if ($this->general->update_data("certificados", $data, $condicion)) {
+        $resp["exito"] = true;
+        $resp["mensaje"] = "Certificado actualizado con exito";
+      } else {
+        $resp["exito"] = false;
+        $resp["mensaje"] = "Ocurrio un error, intentelo más tarde";
+      }
+    } else {
+
+      if ($this->general->save_data("certificados", $data) != false) {
+        $resp["exito"] = true;
+        $resp["mensaje"] = "Certificado creado con exito";
+      } else {
+        $resp["exito"] = false;
+        $resp["mensaje"] = "Ocurrio un error, intentelo más tarde";
       }
     }
     echo json_encode($resp);
