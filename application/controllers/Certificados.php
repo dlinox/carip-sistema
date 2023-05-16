@@ -423,7 +423,8 @@ class Certificados extends CI_Controller
     $data["categorias"] = $this->general->getOptions('cert_categorias', array("cert_cate_id", "cert_cate_nombre"), '* Categoria');
     $data["menciones"] = $this->general->getOptions('cert_menciones', array("cert_menc_id", "cert_menc_nombre"), '* Mención');
 
-    $this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
+    //$this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
+    $this->cssjs->add_js(base_url() . "assets/js/AreaAcademica/alunos.js", false, false);
     //$script['js'] = $this->cssjs->generate_js();
 
     $this->load->view($this->controller . "/form_personal", $data);

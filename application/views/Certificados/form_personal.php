@@ -24,13 +24,6 @@
             <?= form_input(array('name' => 'cert_fecha', 'placeholder' => 'Fecha', 'class' => 'form-control', 'placeholder' => 'Arequipa, Enero de 2023', 'value' => $certificado->cert_fecha)) ?>
           </div>
 
-          <!-- <div class="col-12 col-md-12">
-            <label>Buscar Alumno</label>
-            <?= form_dropdown('cert_alum_id', [] , $certificado->cert_alum_id, array('class' => 'form-control select-alumno', 'id' => 'selectAlumno'))   ?>
-          </div> -->
-
-          <!-- <div id="persona"></div> -->
-
           <div class="col-12 col-md-12">
             <label>Alumno</label>
             <?= form_input(array('name' => 'cert_alum_nombre', 'placeholder' => 'Jose Peres', 'class' => 'form-control', 'value' => $certificado->cert_alum_nombre)) ?>
@@ -55,8 +48,3 @@
     <?= form_close() ?>
   </div>
 </div>
-
-<script>
-$('#persona').s2persona();
-
-</script>
