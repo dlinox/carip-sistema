@@ -35,10 +35,18 @@ class Api extends CI_Controller
   {
     $searchBy = $this->input->post('searchBy');
     $search = $this->input->post('search');
-
-    $this->output
-      ->set_content_type('application/json')
-      ->set_output(json_encode($searchBy));
+    try {
+      $datos = $this->api_model->validar_certificado($searchBy, $search);
+      $this->response['data'] = $datos;
+      $this->response['ok'] = true;
+      $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($this->response));
+    } catch (\Throwable $th) {
+      $this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode($this->response));
+    }
   }
   // Otros métodos de la API...
 }
