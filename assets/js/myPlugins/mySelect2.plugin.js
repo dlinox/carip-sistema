@@ -29,8 +29,6 @@ var res_data = 'hola';
                     },
                     processResults: function (data, params) {
                         params.page = params.page || 1;
-
-
                         return {
                             results: data.items,
                             pagination: {
@@ -42,8 +40,6 @@ var res_data = 'hola';
             });
             $this.on('select2:select', config.onSelect);
         });
-
-
     };
     return res_data;
 })(jQuery);

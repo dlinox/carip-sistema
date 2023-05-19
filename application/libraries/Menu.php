@@ -342,6 +342,12 @@ class Menu
 				[
 
 					[
+						"name" => "Lista",
+						"icon" => "dot-circle",
+						"url" => "certificados/lista",
+					],
+
+					[
 						"name" => "Grupo",
 						"icon" => "dot-circle",
 						"url" => "certificados/",

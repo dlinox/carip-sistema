@@ -81,6 +81,12 @@ class Certificados extends CI_Controller
       $data['cert_alum_id'] = $value;
       $data['cert_num'] = $numero;
 
+
+      $data["cert_alum_nombre"] = $this->db->select("CONCAT(pers_nombres, ' ', pers_apellidos) AS nombre")
+        ->join('alumnos', 'pers_id = alum_pers_id', 'inner')
+        ->where('id_alumno', $value)
+        ->get("personas")
+        ->row()->nombre;
       $this->db->insert("certificados", $data);
     }
 
@@ -389,7 +395,6 @@ class Certificados extends CI_Controller
 
       $where = count($condiciones) > 0 ? implode(' AND ', $condiciones) : "";
 
-      //var_dump($where);
       echo json_encode(
         $this->ssp->simple($_POST, $sql_details, $table, $primaryKey, $columns, $joinQuery, $where)
       );
@@ -416,19 +421,28 @@ class Certificados extends CI_Controller
       $certificado->cert_prefix = "";
       $certificado->cert_num = "";
       $certificado->cert_fecha = "";
+      $certificado->cert_menc_nombre = "";
     } else {
-      $certificado = $this->db->where("cert_id", $id)->get("certificados")->row();
+
+      $certificado = $this->db->select('certificados.*, m.cert_menc_nombre')
+        ->join('cert_menciones as m', 'certificados.cert_menc_id = m.cert_menc_id', 'inner')
+        ->join('alumnos as a', 'a.id_alumno = certificados.cert_alum_id', 'left')
+        // ->join('personas as p', 'p.pers_id = a.alum_pers_id', 'inner')
+        ->where("certificados.cert_id", $id)
+        ->get("certificados")
+        ->row();
     }
     $data["certificado"] = $certificado;
 
     $data["categorias"] = $this->general->getOptions('cert_categorias', array("cert_cate_id", "cert_cate_nombre"), '* Categoria');
     $data["menciones"] = $this->general->getOptions('cert_menciones', array("cert_menc_id", "cert_menc_nombre"), '* Mención');
 
-    //$this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
-    $this->cssjs->add_js(base_url() . "assets/js/AreaAcademica/alunos.js", false, false);
-    //$script['js'] = $this->cssjs->generate_js();
+    $this->cssjs->add_js($this->jsPath . "certificados/form_personal.js", false, false);
 
+    $data["titulo"] = 'Crear certificado personal ';
+    $this->load->view('header',);
     $this->load->view($this->controller . "/form_personal", $data);
+    $this->load->view('footer');
   }
 
   public function certificado_guardar($id = null)
@@ -437,10 +451,18 @@ class Certificados extends CI_Controller
       'cert_menc_id' => $this->input->post("cert_menc_id"),
       'cert_cate_id' => $this->input->post("cert_cate_id"),
       'cert_fecha' => $this->input->post("cert_fecha"),
-      'cert_alum_nombre' => $this->input->post("cert_alum_nombre"),
+      //'cert_alum_nombre' => $this->input->post("cert_alum_nombre"),
       'cert_prefix' => $this->input->post("cert_prefix"),
       'cert_num' => $this->input->post("cert_num"),
+      'cert_alum_id' => $this->input->post("cert_alum_id"),
+
     ];
+    // $data["cert_alum_nombre"] = $this->db->select("CONCAT(pers_nombres, ' ', pers_apellidos, ' (', pers_dni,')') AS nombre")
+    $data["cert_alum_nombre"] = $this->db->select("CONCAT(pers_nombres, ' ', pers_apellidos) AS nombre")
+      ->join('alumnos', 'pers_id = alum_pers_id', 'inner')
+      ->where('id_alumno', $this->input->post("cert_alum_id"))
+      ->get("personas")
+      ->row()->nombre;
 
     if ($id != null) {
       $condicion = array("cert_id" => $id);
@@ -473,5 +495,90 @@ class Certificados extends CI_Controller
       $res .=  $x[0];
     }
     return $res;
+  }
+
+  public function mencionS2()
+  {
+
+    $responese = new StdClass;
+    $term = $_GET['term'];
+    $datos = array();
+    $like =
+      [
+        'cert_menc_nombre' => $term,
+        'cert_menc_id' => $term,
+      ];
+
+    $where = '';
+    $results = $this->general->select2("cert_menciones", $like, null, $where);
+
+    foreach ($results["items"] as $value) {
+      $datos[] = array(
+        "id" => $value->cert_menc_id,
+        "text" => $value->cert_menc_nombre
+      );
+    }
+    $responese->total_count = $results["total_count"];
+    $responese->incomplete_results = false;
+    $responese->items = $datos;
+    echo json_encode($responese);
+  }
+
+  public function lista()
+  {
+    $datos = [];
+
+    $this->load->helper('Functions');
+    $this->load->library('Ssp');
+    $this->load->library('Cssjs');
+    $json = isset($_GET['json']) ? $_GET['json'] : false;
+
+
+    $columns = array(
+      array('db' => 'cert_id', 'dt' => 'DT_RowId'),
+      array('db' => 'cert_id', 'dt' => 'ID'),
+      array('db' => 'cert_alum_nombre', 'dt' => 'ALUMNO'),
+      array('db' => 'cert_prefix', 'dt' => 'PREFIJO'),
+      array('db' => 'cert_num', 'dt' => 'NÚMERO'),
+      array('db' => 'cert_fecha', 'dt' => 'FECHA'),
+
+    );
+
+    foreach ($columns as &$item) {
+      $item['field'] = $item['db'];
+    }
+
+    if ($json) {
+      $json = isset($_GET['json']) ? $_GET['json'] : false;
+
+      $table = 'certificados';
+      $primaryKey = 'cert_id';
+
+      $sql_details = array(
+        'user' => $this->db->username,
+        'pass' => $this->db->password,
+        'db' => $this->db->database,
+        'host' => $this->db->hostname
+      );
+
+      $condiciones = array('');
+      $joinQuery = '';
+
+      $where = "";
+
+      $where = count($condiciones) > 0 ? implode(' AND ', $condiciones) : "";
+
+      echo json_encode(
+        $this->ssp->simple($_POST, $sql_details, $table, $primaryKey, $columns, $joinQuery, $where)
+      );
+      exit(0);
+    }
+
+    $datos['columns'] = $columns;
+    $datos['titulo'] = "Certificados Personales";
+    $this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
+    $this->load->view('header',);
+    $this->load->view($this->controller . "/personales", $datos);
+    $this->load->view('footer');
   }
 }

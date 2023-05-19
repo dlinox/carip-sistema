@@ -4,7 +4,7 @@ $(document).ready(function () {
   var $table;
   function botones(id, $ar) {
     html = `
-        <a href='{baseurl}certificados/personal_crear/{id}' title="Editar Certificado" class="btn btn-primary btn-sm editar"><i class="fa fa-edit"></i></a>
+        <a href='{baseurl}certificados/personal_crear/{id}' title="Editar Certificado" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
         <a href='{baseurl}certificados/personal_eliminar/{id}'title="Eliminar Certificado" class="btn btn-danger btn-sm eliminar"><i class="fa fa-trash"></i></a>`;
 
     html = replaceAll(html, "{baseurl}", baseurl);
@@ -94,6 +94,8 @@ $(document).ready(function () {
               swal("", data.mensaje, "success");
               $dlg.find(".close").click();
               $table.draw("page");
+
+             
             } else {
               $dlg.find(".error-message").html(data.mensaje);
               $dlg.find(".error-message").show();

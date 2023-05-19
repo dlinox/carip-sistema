@@ -244,7 +244,6 @@ $(document).ready(function () {
         $(this).formPost(true, {}, function (data) {
             $.gs_loader.hide();
             if (data.exito) {
-                console.log('AQIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII');
                 swal("", data.mensaje, "success");
                 $('.id_alumno').val(null).trigger('change');
                 $table.draw();
