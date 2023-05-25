@@ -92,6 +92,8 @@ $(document).ready(function () {
           },
         },
       ],
+      columns: [{ orderData: [1] }, { orderData: [2] }],
+
       language: {
         processing: "Procesando...",
         lengthMenu: "Mostrar _MENU_ por página",
@@ -133,7 +135,7 @@ $(document).ready(function () {
           console.log(grupo);
           changeGrupo(grupo);
 
-          //mostrarTabla();
+          mostrarTabla();
         } else {
           swal("", response.mensaje, "error");
         }

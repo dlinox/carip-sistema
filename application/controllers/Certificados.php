@@ -30,7 +30,7 @@ class Certificados extends CI_Controller
   {
 
     $datos = [];
-    $this->cssjs->add_js($this->jsPath . "Certificados/certificados.js", false, false);
+    $this->cssjs->add_js($this->jsPath . "certificados/certificados.js", false, false);
 
 
     $datos["categorias"] = $this->general->getOptions('cert_categorias', array("cert_cate_id", "cert_cate_nombre"), '* Categoria');
@@ -52,6 +52,7 @@ class Certificados extends CI_Controller
     $data['cert_menc_id'] = $this->input->post("menc_id");
     $data['cert_grup_id'] = $this->input->post("grup_id");
     $data['cert_prefix'] = $this->getIniciales($this->input->post("nombre_curso"));
+    $data['cert_tipo'] = 'G';
 
 
 
@@ -78,13 +79,12 @@ class Certificados extends CI_Controller
         . str_pad($data['cert_menc_id'], 2, '0', STR_PAD_LEFT)
         . str_pad($value, 4, '0', STR_PAD_LEFT);
 
-      $data['cert_alum_id'] = $value;
+      $data['cert_alum_id'] = $value; //ID DE PERSONA
       $data['cert_num'] = $numero;
 
 
       $data["cert_alum_nombre"] = $this->db->select("CONCAT(pers_nombres, ' ', pers_apellidos) AS nombre")
-        ->join('alumnos', 'pers_id = alum_pers_id', 'inner')
-        ->where('id_alumno', $value)
+        ->where('pers_id', $value)
         ->get("personas")
         ->row()->nombre;
       $this->db->insert("certificados", $data);
@@ -459,8 +459,7 @@ class Certificados extends CI_Controller
     ];
     // $data["cert_alum_nombre"] = $this->db->select("CONCAT(pers_nombres, ' ', pers_apellidos, ' (', pers_dni,')') AS nombre")
     $data["cert_alum_nombre"] = $this->db->select("CONCAT(pers_nombres, ' ', pers_apellidos) AS nombre")
-      ->join('alumnos', 'pers_id = alum_pers_id', 'inner')
-      ->where('id_alumno', $this->input->post("cert_alum_id"))
+      ->where('pers_id', $this->input->post("cert_alum_id"))
       ->get("personas")
       ->row()->nombre;
 
@@ -533,9 +532,9 @@ class Certificados extends CI_Controller
     $this->load->library('Cssjs');
     $json = isset($_GET['json']) ? $_GET['json'] : false;
 
-
     $columns = array(
       array('db' => 'cert_id', 'dt' => 'DT_RowId'),
+      array('db' => 'cert_alum_id', 'dt' => 'DT_ID_ALUM'),
       array('db' => 'cert_id', 'dt' => 'ID'),
       array('db' => 'cert_alum_nombre', 'dt' => 'ALUMNO'),
       array('db' => 'cert_prefix', 'dt' => 'PREFIJO'),
@@ -561,7 +560,19 @@ class Certificados extends CI_Controller
         'host' => $this->db->hostname
       );
 
+
+      $tipo = isset($_POST['tipo_certificado']) ? $_POST['tipo_certificado'] : false;
+
       $condiciones = array('');
+
+      if ($tipo == 1) {
+        $condiciones = array('cert_grup_id IS NOT NULL');
+      }
+      if ($tipo == 2) {
+        $condiciones = array('cert_grup_id IS NULL');
+      }
+
+
       $joinQuery = '';
 
       $where = "";
@@ -575,10 +586,71 @@ class Certificados extends CI_Controller
     }
 
     $datos['columns'] = $columns;
-    $datos['titulo'] = "Certificados Personales";
-    $this->cssjs->add_js($this->jsPath . "certificados/personal.js", false, false);
+    $datos['titulo'] = "Certificados";
+    $this->cssjs->add_js($this->jsPath . "certificados/listado.js", false, false);
     $this->load->view('header',);
-    $this->load->view($this->controller . "/personales", $datos);
+    $this->load->view($this->controller . "/lista", $datos);
     $this->load->view('footer');
   }
+
+  public function next_num()
+  {
+    $prefix = $this->input->get("prefix");
+
+    $this->db->select_max('cert_num')->where("cert_prefix", $prefix)->where("cert_grup_id IS NULL");
+    $query = $this->db->get('certificados');
+    $resultado = $query->row();
+    $max =  intval($resultado->cert_num) + 1;
+
+    $max = str_pad($max, 10, "0", STR_PAD_LEFT);
+
+    echo json_encode($max);
+  }
+
+  public function persona_crear($id = "")
+  {
+    if (empty($id)) {
+      $persona = new stdClass();
+      $persona->pers_id = "";
+      $persona->pers_dni = "";
+      $persona->pers_nombres = "";
+      $persona->pers_apellidos = "";
+    } else {
+      $persona = $this->db->where("id", $id)->get("personas")->row();
+    }
+    $data["persona"] = $persona;
+    $this->load->view($this->controller . "/form_persona", $data);
+  }
+
+  public function persona_guardar($id = "")
+  {
+
+    $data = array(
+      'pers_dni' => $this->input->post("pers_dni"),
+      'pers_nombres' => $this->input->post("pers_nombres"),
+      'pers_apellidos' => $this->input->post("pers_apellidos"),
+
+    );
+    if ($id != null) {
+      $condicion = array("pers_id" => $id);
+      if ($this->general->update_data("personas", $data, $condicion)) {
+        $resp["exito"] = true;
+        $resp["mensaje"] = "Persona agregado con exito";
+      } else {
+        $resp["exito"] = false;
+        $resp["mensaje"] = "Ocurrio un error, intentelo más tarde";
+      }
+    } else {
+
+      if ($this->general->save_data("personas", $data) != false) {
+        $resp["exito"] = true;
+        $resp["mensaje"] = "Persona registrado con exito";
+      } else {
+        $resp["exito"] = false;
+        $resp["mensaje"] = "Ocurrio un error, intentelo más tarde";
+      }
+    }
+    echo json_encode($resp);
+  }
 }
+//berta chauares

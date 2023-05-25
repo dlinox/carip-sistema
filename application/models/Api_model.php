@@ -22,6 +22,11 @@ class Api_model extends CI_Model
       return  $this->getByNombre($search);
     }
 
+    if ($searchBy == 'DNI') {
+      return  $this->getByDNI($search);
+    }
+    
+
     // Devuelve los resultados de la consulta
   }
 
@@ -50,8 +55,19 @@ class Api_model extends CI_Model
     return $query->result();
   }
 
-  function getByDNI($search)
+  function getByDNI($search) //dni
   {
+
+    $this->db->select('C.cert_alum_nombre, C.cert_fecha, CC.cert_cate_nombre, CM.cert_menc_nombre');
+    $this->db->select("CONCAT(IFNULL(C.cert_prefix, ''), C.cert_num) AS codigo", FALSE);
+    $this->db->from('certificados AS C');
+    $this->db->join('cert_categorias AS CC', 'C.cert_cate_id = CC.cert_cate_id', 'inner');
+    $this->db->join('cert_menciones AS CM', 'C.cert_menc_id = CM.cert_menc_id', 'inner');
+    $this->db->join('personas AS P', 'C.cert_alum_id= P.pers_id', 'inner');
+    $this->db->where("P.pers_dni = ",  $search);
+    $query = $this->db->get();
+    return $query->result();
+
   }
   // Otros métodos del modelo...
 }

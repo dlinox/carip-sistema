@@ -191,15 +191,15 @@ class GrupoModel extends CI_Model
             cert_prefix as prefix,
             cert_cate_id as categoria,
             cert_menc_id as mencion,
-            cert_fecha as fecha'
+            cert_fecha as fecha,
+            pers_id'
         );
         $this->db->from('grupos_alumnos');
         $this->db->join('alumnos', 'gral_id_alumno = id_alumno');
         $this->db->join('personas', 'alum_pers_id = pers_id');
-        $this->db->join('certificados', 'gral_id_alumno = cert_alum_id', 'left');
+        $this->db->join('certificados', 'pers_id = cert_alum_id AND cert_grup_id = gral_grup_id', 'left');
         //$this->db->where(['cert_grup_id' => $grup_id]);
         $this->db->where(['gral_grup_id' => $grup_id]);
-
         $this->db->order_by('pers_apellidos', 'ASC');
         $this->db->order_by('pers_nombres', 'ASC');
         $alumnos = $this->db->get()->result();

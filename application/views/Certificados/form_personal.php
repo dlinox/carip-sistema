@@ -19,6 +19,7 @@
                   <label>Categoria:</label>
                   <?= form_dropdown('cert_cate_id', $categorias, $certificado->cert_cate_id, array('class' => 'form-control', 'id' => 'selectCategoria'))   ?>
                 </div>
+
                 <div class="col-12 col-md-12">
                   <input type="hidden" id="aux_menc" value="<?= $certificado->cert_menc_id ?>" data-name="<?= $certificado->cert_menc_nombre ?>">
                   <label>Mención</label>
@@ -32,8 +33,15 @@
 
                 <div class="col-12 col-md-12">
                   <input type="hidden" id="aux_alum" value="<?= $certificado->cert_alum_id ?>" data-name="<?= $certificado->cert_alum_nombre ?>">
-                  <label>Alumno</label>
-                  <?= form_dropdown('cert_alum_id', [], $certificado->cert_alum_id, array('class' => 'form-control', 'id' => 'persona', 'data-placeholder' => '* Alumno'))   ?>
+                  <label>Persona
+
+                    <a class="btn btn-success crear" type="button" href="<?= base_url() ?>certificados/persona_crear">
+                      Agregar
+                    </a>
+                  </label>
+                  <?= form_dropdown('cert_alum_id', [], $certificado->cert_alum_id, array('class' => 'form-control', 'id' => 'persona', 'data-placeholder' => '* Persona')) ?>
+
+
                 </div>
 
                 <div class="col-12 col-md-4">
@@ -42,7 +50,7 @@
                 </div>
                 <div class="col-12 col-md-8">
                   <label>Número</label>
-                  <?= form_input(array('name' => 'cert_num', 'placeholder' => '0000001', 'class' => 'form-control', 'value' => $certificado->cert_num)) ?>
+                  <?= form_input(array('name' => 'cert_num', 'placeholder' => '0000001', 'class' => 'form-control', 'value' => $certificado->cert_num,)) ?>
                 </div>
               </div>
             </div>
